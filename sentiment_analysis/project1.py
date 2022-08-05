@@ -2,15 +2,15 @@ from string import punctuation, digits
 import numpy as np
 import random
 
-#What we are trying to do: given some Amazon reviews, represent each review as 
-#a feature vector in R^n. Then we use some classification algorithms to label
-#various data points in R^n as positive or negative. 
+# What we are trying to do: given some Amazon reviews, represent each review as
+# a feature vector in R^n. Then we use some classification algorithms to label
+# various data points in R^n as positive or negative.
 
 
 # Part I
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def get_order(n_samples):
     try:
         with open(str(n_samples) + '.txt') as fp:
@@ -21,10 +21,10 @@ def get_order(n_samples):
         indices = list(range(n_samples))
         random.shuffle(indices)
         return indices
-#pragma: coderesponse end
+# pragma: coderesponse end
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def hinge_loss_single(feature_vector, label, theta, theta_0):
     """
     Finds the hinge loss on a single data point given specific classification
@@ -47,12 +47,12 @@ def hinge_loss_single(feature_vector, label, theta, theta_0):
         return 0
     else:
         return 1 - z
-    
+
     #raise NotImplementedError
-#pragma: coderesponse end
+# pragma: coderesponse end
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def hinge_loss_full(feature_matrix, labels, theta, theta_0):
     """
     Finds the total hinge loss on a set of data given specific classification
@@ -79,12 +79,12 @@ def hinge_loss_full(feature_matrix, labels, theta, theta_0):
         s += h
     avg = s/j
     return avg
-    
+
     #raise NotImplementedError
-#pragma: coderesponse end
+# pragma: coderesponse end
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def perceptron_single_step_update(
         feature_vector,
         label,
@@ -112,14 +112,14 @@ def perceptron_single_step_update(
     if z < 10**(-10):
         current_theta += label*feature_vector
         current_theta_0 += label
-        #print(current_theta_0)
+        # print(current_theta_0)
     return current_theta, current_theta_0
-  
+
     #raise NotImplementedError
-#pragma: coderesponse end
+# pragma: coderesponse end
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def perceptron(feature_matrix, labels, T):
     """
     Runs the full perceptron algorithm on a given set of data. Runs T
@@ -151,19 +151,19 @@ def perceptron(feature_matrix, labels, T):
     for t in range(T):
         for i in get_order(feature_matrix.shape[0]):
             # Your code here
-            (current_theta, current_theta_0) =  perceptron_single_step_update(
+            (current_theta, current_theta_0) = perceptron_single_step_update(
                 feature_matrix[i, :],
                 labels[i],
                 current_theta,
                 current_theta_0)
-            #print(current_theta_0)
+            # print(current_theta_0)
     return current_theta, current_theta_0
-            #pass
+    # pass
     #raise NotImplementedError
-#pragma: coderesponse end
+# pragma: coderesponse end
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def average_perceptron(feature_matrix, labels, T):
     """
     Runs the average perceptron algorithm on a given set of data. Runs T
@@ -195,10 +195,10 @@ def average_perceptron(feature_matrix, labels, T):
     """
     # Your code here
     raise NotImplementedError
-#pragma: coderesponse end
+# pragma: coderesponse end
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def pegasos_single_step_update(
         feature_vector,
         label,
@@ -227,10 +227,10 @@ def pegasos_single_step_update(
     """
     # Your code here
     raise NotImplementedError
-#pragma: coderesponse end
+# pragma: coderesponse end
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def pegasos(feature_matrix, labels, T, L):
     """
     Runs the Pegasos algorithm on a given set of data. Runs T
@@ -262,12 +262,12 @@ def pegasos(feature_matrix, labels, T, L):
     """
     # Your code here
     raise NotImplementedError
-#pragma: coderesponse end
+# pragma: coderesponse end
 
 # Part II
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def classify(feature_matrix, theta, theta_0):
     """
     A classification function that uses theta and theta_0 to classify a set of
@@ -294,14 +294,14 @@ def classify(feature_matrix, theta, theta_0):
         else:
             p.append(-1)
     prediction = np.array(p)
-    
+
     return prediction
-    
+
     #raise NotImplementedError
-#pragma: coderesponse end
+# pragma: coderesponse end
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def classifier_accuracy(
         classifier,
         train_feature_matrix,
@@ -335,24 +335,24 @@ def classifier_accuracy(
     accuracy of the trained classifier on the validation data.
     """
     # Your code here
-    
-    #training
+
+    # training
     (theta, theta_0) = classifier(train_feature_matrix, train_labels, **kwargs)
-    
+
     p1 = classify(train_feature_matrix, theta, theta_0)
     train_accuracy = accuracy(p1, train_labels)
-    
-    #validation
+
+    # validation
     p2 = classify(val_feature_matrix, theta, theta_0)
     val_accuracy = accuracy(p2, val_labels)
-    
+
     return train_accuracy, val_accuracy
-    
+
     #raise NotImplementedError
-#pragma: coderesponse end
+# pragma: coderesponse end
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def extract_words(input_string):
     """
     Helper function for bag_of_words()
@@ -364,11 +364,11 @@ def extract_words(input_string):
         input_string = input_string.replace(c, ' ' + c + ' ')
 
     return input_string.lower().split()
-#pragma: coderesponse end
+# pragma: coderesponse end
 
 
-#pragma: coderesponse template
-#original bag_of_words function
+# pragma: coderesponse template
+# original bag_of_words function
 # def bag_of_words(texts):
 #     """
 #     Inputs a list of string reviews
@@ -385,13 +385,14 @@ def extract_words(input_string):
 #                 dictionary[word] = len(dictionary)
 #     return dictionary
 
-#pragma: coderesponse end
-#modified bag_of_words function
-#for feature engineering in Problem 9: Remove Stop Words 
+# pragma: coderesponse end
+# modified bag_of_words function
+# for feature engineering in Problem 9: Remove Stop Words
 
 stopwords_file = open('stopwords.txt', 'r')
 stopwords_str = stopwords_file.read()
 stopwords_list = stopwords_str.split("\n")
+
 
 def bag_of_words(texts):
     """
@@ -401,7 +402,7 @@ def bag_of_words(texts):
     Feel free to change this code as guided by Problem 9
     """
     # Your code here
-    dictionary = {} # maps word to unique index
+    dictionary = {}  # maps word to unique index
     for text in texts:
         word_list = extract_words(text)
         for word in word_list:
@@ -410,11 +411,11 @@ def bag_of_words(texts):
                     dictionary[word] = len(dictionary)
     return dictionary
 
-#my remark: for the Perceptron algorithm, this "Remove Stop Words" feature 
-#reduces the testing accuracy; the original approach seems to be better
+# my remark: for the Perceptron algorithm, this "Remove Stop Words" feature
+# reduces the testing accuracy; the original approach seems to be better
 
-#pragma: coderesponse template
-#original extract_bow_feature_vectors function
+# pragma: coderesponse template
+# original extract_bow_feature_vectors function
 # def extract_bow_feature_vectors(reviews, dictionary):
 #     """
 #     Inputs a list of string reviews
@@ -436,11 +437,12 @@ def bag_of_words(texts):
 #             if word in dictionary:
 #                 feature_matrix[i, dictionary[word]] = 1
 #     return feature_matrix
-#pragma: coderesponse end
+# pragma: coderesponse end
 
-#modified extract_bow_feature_vectors function
-#for feature engineering in Problem 9: Change Binary Features to Counts Features
-#after the implementaion of Remove Stop Words in part 1 of Problem 9 
+# modified extract_bow_feature_vectors function
+# for feature engineering in Problem 9: Change Binary Features to Counts Features
+# after the implementaion of Remove Stop Words in part 1 of Problem 9
+
 
 def extract_bow_feature_vectors(reviews, dictionary):
     """
@@ -464,11 +466,11 @@ def extract_bow_feature_vectors(reviews, dictionary):
                 feature_matrix[i, dictionary[word]] += 1
     return feature_matrix
 
-#my remark: for the Perceptron algorithm, this 
-#"Change Binary Features to Counts Features" approach 
-#reduces the testing accuracy; the original approach seems to be better
+# my remark: for the Perceptron algorithm, this
+# "Change Binary Features to Counts Features" approach
+# reduces the testing accuracy; the original approach seems to be better
 
-#Final Remarks on Feature Engineering from the teaching crew:
+# Final Remarks on Feature Engineering from the teaching crew:
 # Some additional features that you might want to explore are:
 
 # Length of the text
@@ -477,24 +479,24 @@ def extract_bow_feature_vectors(reviews, dictionary):
 
 # Word embeddings
 
-# Besides adding new features, you can also change the original unigram feature 
-# set. 
+# Besides adding new features, you can also change the original unigram feature
+# set.
 # For example,
 
-# Threshold the number of times a word should appear in the dataset before adding 
-# them to the dictionary. For example, words that occur less than three times 
-# across the train dataset could be considered irrelevant and thus can be removed. 
+# Threshold the number of times a word should appear in the dataset before adding
+# them to the dictionary. For example, words that occur less than three times
+# across the train dataset could be considered irrelevant and thus can be removed.
 # This lets you reduce the number of columns that are prone to overfitting.
 
-# There are also many other things you could change when training your model. 
-# Try anything that can help you understand the sentiment of a review. 
-# It's worth looking through the dataset and coming up with some features that 
-# may help your model. Remember that not all features will actually help 
-# so you should experiment with some simpler ones before 
+# There are also many other things you could change when training your model.
+# Try anything that can help you understand the sentiment of a review.
+# It's worth looking through the dataset and coming up with some features that
+# may help your model. Remember that not all features will actually help
+# so you should experiment with some simpler ones before
 # trying anything too complicated.
 
 
-#pragma: coderesponse template
+# pragma: coderesponse template
 def accuracy(preds, targets):
     """
     Given length-N vectors containing predicted and target labels,
@@ -502,6 +504,4 @@ def accuracy(preds, targets):
     """
     return (preds == targets).mean()
 
-#pragma: coderesponse end
-
-
+# pragma: coderesponse end
