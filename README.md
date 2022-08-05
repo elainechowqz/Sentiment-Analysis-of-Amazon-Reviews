@@ -1,3 +1,3 @@
-# Sentiment-Analysis-from-Amazon-Reviews
+# Sentiment Analysis from Amazon Reviews
 
 Classify Users' Sentiments from an Amazon reviews dataset, using Machine Learning. 
